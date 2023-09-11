@@ -1,73 +1,102 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+1. Introduction:
+   - This is a server side application that reads user details and saves them in mongodb database, aswell as queries them from database too.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+2. Installation:
+   - Clone or fork this repository into your machine. 
+   - Install NodeJS in your system.
+   - npm install 
 
-## Description
+3. Connecting database:
+   - Copy and paste your mongodb database's connection string into env file.
+   - If you are connectiing to a cloud hosted database make sure you register your device's ip addres (You will see abutton called "Add Curent IP Address" inside connect prompt.)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+4. Run:
+   - npm run start:dev
 
-## Installation
+5. Features:
+   - Open graphql playground
+        -http://localhost:3000/graphql
+   - Save user data using mutaion.
+   - Retrive user data using query.
 
-```bash
-$ npm install
-```
+6. Exploring code base:
+   - If you see inside input-type folder, there is a file that defines the structure of data that we can give input to our mutation and this where the input validation is also carried out.
+   - If you see object-type folder, there is a file that defines the structue of data that we can output from our query.
+   - If you see inside database folder, there is file that defines the structue of our mongodb documents.
+   - If you see inside user.resolver.ts, there is methods decorated by mutation and query decorators. Those are the end points of our application.
+      - Mutation is responsible for handling incoming data.
+      - Query is responsible for serving requested data.
 
-## Running the app
+   - Al the database operations are done inside user.service.ts.
+      - Mongoose modle is injected to access a document instance and perform database operations on it.
 
-```bash
-# development
-$ npm run start
+7. GraphQL Play Ground:
+               mutation {
+               creatUser(
+                  createUser: {
+                     fullName: ""
+                     gender: ""
+                     phoneNumber: ""
+                     email: ""
+                     address: ""
+                     nationality: ""
+                     dateOfBirth: "2023-09-09T14:30:00.000+00:00"
+                     education: ""
+                     preferedModeOfContact: "
+                  }
+               ) {
+                  fullName
+                  dateOfBirth
+               }
+               }
 
-# watch mode
-$ npm run start:dev
+               query {
+               getAllUsers {
+                  id
+                  fullName
+                  gender
+                  phoneNumber
+                  email
+                  address
+                  nationality
+                  dateOfBirth
+                  education
+                  preferedModeOfContact
+               }
+               }
 
-# production mode
-$ npm run start:prod
-```
+               query {
+               getUser(id: "") {
+                  id
+                  fullName
+                  gender
+               }
+               }
 
-## Test
+               mutation {
+               updateUser(
+                  id: ""
+                  updateUser: {
+                     fullName: ""
+                     gender: ""
+                     phoneNumber: ""
+                     email: ""
+                     address: ""
+                     nationality: ""
+                     dateOfBirth: "2023-09-09T14:30:00.000+00:00"
+                     education: ""
+                     preferedModeOfContact: ""
+                  }
+               ) {
+                  id
+                  fullName
+               }
+               }
 
-```bash
-# unit tests
-$ npm run test
+               mutation {
+               deleteUser(id: "")
+               }
 
-# e2e tests
-$ npm run test:e2e
+   
 
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

@@ -1,5 +1,3 @@
-// src/graphql/graphql.schema.ts
-
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { preferedModeOfContact } from '../constants/preferedModeOfContact.enum';
 

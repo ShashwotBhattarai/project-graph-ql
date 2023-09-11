@@ -10,9 +10,7 @@ import {
 } from 'class-validator';
 
 @InputType()
-export class UserInput {
-  id: string;
-
+export class UserUpdateInput {
   @IsNotEmpty()
   @MaxLength(20)
   @Field()
